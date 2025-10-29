@@ -131,20 +131,20 @@ def analyze(file_path: str, framework_hint: str = None, **kwargs):
 
 def chunk(
     file_path: str,
-    analysis_result,
+    analysis_result=None,
     strategy: str = "auto",
     framework_hint: str = None,
     **kwargs
 ):
     """
-    Chunk a file based on its analysis result.
+    Chunk a file.
 
     Convenience function that uses a global UnifiedAnalyzer instance.
-    Uses the same framework that would be used for analysis.
+    Frameworks handle their own internal analysis.
 
     Args:
         file_path: Path to the file to chunk
-        analysis_result: Analysis result from analyze()
+        analysis_result: (Optional) Not used, kept for backward compatibility
         strategy: Chunking strategy (framework-specific, default: "auto")
         framework_hint: Optional framework override
         **kwargs: Additional arguments passed to the framework's chunk method
@@ -158,9 +158,8 @@ def chunk(
         ChunkingError: If chunking fails
 
     Example:
-        >>> from unified_document_analysis import analyze, chunk
-        >>> result = analyze('document.pdf')
-        >>> chunks = chunk('document.pdf', result, strategy="semantic")
+        >>> from unified_document_analysis import chunk
+        >>> chunks = chunk('document.pdf', strategy="semantic")
     """
     analyzer = _get_analyzer()
     return analyzer.chunk(

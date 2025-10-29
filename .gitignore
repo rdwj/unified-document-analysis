@@ -137,3 +137,23 @@ Thumbs.db
 /test_files/
 /temp/
 *.tmp
+
+# Security - API keys and credentials
+.pypirc
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+credentials.yaml
+secrets.yaml
+secrets.yml
+*_key.txt
+*_token.txt
+*_secret.txt
+api_keys.txt
+tokens.txt
+
+# Environment variables (additional variants)
+.env.local
+.env.*.local

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "unified-document-analysis"
-version = "1.0.0"
+version = "1.0.1"
 description = "Unified interface for document analysis frameworks - automatically routes to xml, docling, document, or data analysis frameworks"
 readme = "README.md"
 requires-python = ">=3.8"

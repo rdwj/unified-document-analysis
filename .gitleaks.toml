@@ -1,0 +1,44 @@
+[allowlist]
+  description = "Project-specific allowlist for false positives"
+
+  # Ignore based on file paths
+  paths = [
+    # Example files
+    '''\/example.*\.pem$''',
+    '''\/examples\/''',
+    '''\.example$''',
+    '''\.sample$''',
+    '''\.template$''',
+    '''\.tmpl$''',
+
+    # Test fixtures
+    '''\/tests?\/fixtures\/''',
+    '''\/test\/.*\.key$''',
+    '''_test\.py$''',
+    '''\.test\.js$''',
+
+    # Documentation
+    '''README\.md$''',
+    '''docs\/.*\.md$''',
+    '''commands\/.*\.md$''',
+    '''agents\/.*\.md$''',
+  ]
+
+  # Ignore based on line content
+  regexes = [
+    # Test/example passwords
+    '''password.*['"]\s*['"]\s*$''',
+    '''password.*Pass123''',
+    '''password.*example''',
+    '''password.*test123''',
+
+    # Documentation placeholders
+    '''# Your (private key|certificate) here''',
+    '''<your-.*-here>''',
+    '''REPLACE_WITH_YOUR''',
+    '''YOUR_.*_HERE''',
+    '''REDACTED''',
+    '''example\.com''',
+    '''dummy''',
+    '''placeholder''',
+  ]

@@ -75,20 +75,20 @@ class UnifiedAnalyzer:
     def chunk(
         self,
         file_path: str,
-        analysis_result: Any,
+        analysis_result: Any = None,
         strategy: str = "auto",
         framework_hint: Optional[str] = None,
         **kwargs
     ) -> List[Dict[str, Any]]:
         """
-        Chunk a file based on its analysis result.
+        Chunk a file.
 
-        This method uses the same framework that was used for analysis (or the
-        detected framework if analysis_result is from a different source).
+        Frameworks handle their own internal analysis, so analysis_result is optional
+        and primarily for backward compatibility.
 
         Args:
             file_path: Path to the file to chunk
-            analysis_result: Analysis result from analyze()
+            analysis_result: (Optional) Analysis result - not used, kept for compatibility
             strategy: Chunking strategy (framework-specific, default: "auto")
             framework_hint: Optional framework override
             **kwargs: Additional arguments passed to the framework's chunk method
@@ -103,8 +103,7 @@ class UnifiedAnalyzer:
 
         Example:
             >>> analyzer = UnifiedAnalyzer()
-            >>> result = analyzer.analyze('document.pdf')
-            >>> chunks = analyzer.chunk('document.pdf', result, strategy="semantic")
+            >>> chunks = analyzer.chunk('document.pdf', strategy="semantic")
         """
         # Detect which framework to use
         framework_name = self._router.detect_framework(file_path, framework_hint)
@@ -113,10 +112,10 @@ class UnifiedAnalyzer:
         framework = self._load_framework(framework_name, file_path)
 
         # Perform chunking
+        # Note: Frameworks handle their own internal analysis, so we don't pass analysis_result
         try:
             chunks = framework.chunk(
                 file_path,
-                analysis_result,
                 strategy=strategy,
                 **kwargs
             )
